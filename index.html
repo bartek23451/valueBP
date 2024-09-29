@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ceny Petów w Gemach</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Style jak wcześniej */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #a8edea, #fed6e3);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: #4a4a4a;
+            margin-bottom: 20px;
+            font-size: 3em;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        p {
+            text-align: center;
+            color: #555;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background-color: #ffffff;
+            transition: transform 0.3s;
+        }
+        table:hover {
+            transform: scale(1.02);
+        }
+        th, td {
+            padding: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            transition: background-color 0.3s, transform 0.3s;
+            cursor: pointer;
+        }
+        th {
+            background-color: #6c63ff;
+            color: white;
+            font-weight: 700;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #e3f2fd;
+            transform: scale(1.01);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #888;
+        }
+        /* Style dla modala */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .enchant-btn {
+            background-color: #6c63ff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 0;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        .enchant-btn:hover {
+            background-color: #5753e0;
+        }
+        .enchant-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .enchant-list li {
+            background-color: #e3f2fd;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-weight: 500;
+            transition: transform 0.3s;
+        }
+        .enchant-list li:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Ceny Petów w Gemach</h1>
+    <p>Sprawdź ceny najpopularniejszych petów w grze! Nasza tabela zawiera najbardziej aktualne informacje o cenach, abyś mógł mądrze inwestować w swoje ulubione zwierzątka.</p>
+
+    <table>
+        <tr>
+            <th>Nazwa Peta</th>
+            <th>Cena (w Gemach)</th>
+        </tr>
+        <tr onclick="openModal('Pies')"><td>Pies</td><td>200</td></tr>
+        <tr onclick="openModal('Kot')"><td>Kot</td><td>150</td></tr>
+        <tr onclick="openModal('Papuga')"><td>Papuga</td><td>180</td></tr>
+        <tr onclick="openModal('Królik')"><td>Królik</td><td>170</td></tr>
+        <tr onclick="openModal('Sowa')"><td>Sowa</td><td>220</td></tr>
+        <tr onclick="openModal('Chomik')"><td>Chomik</td><td>140</td></tr>
+        <tr onclick="openModal('Lis')"><td>Lis</td><td>230</td></tr>
+        <tr onclick="openModal('Słoń')"><td>Słoń</td><td>300</td></tr>
+        <tr onclick="openModal('Żółw')"><td>Żółw</td><td>250</td></tr>
+        <tr onclick="openModal('Pingwin')"><td>Pingwin</td><td>210</td></tr>
+        <tr onclick="openModal('Krokodyl')"><td>Krokodyl</td><td>280</td></tr>
+        <tr onclick="openModal('Małpa')"><td>Małpa</td><td>270</td></tr>
+        <tr onclick="openModal('Tygrys')"><td>Tygrys</td><td>320</td></tr>
+        <tr onclick="openModal('Feniks')"><td>Feniks</td><td>350</td></tr>
+        <tr onclick="openModal('Smok')"><td>Smok</td><td>400</td></tr>
+        <tr onclick="openModal('Wieloryb')"><td>Wieloryb</td><td>370</td></tr>
+        <tr onclick="openModal('Wilk')"><td>Wilk</td><td>330</td></tr>
+    </table>
+
+    <div class="footer">
+        &copy; 2024 Ceny Petów w Gemach | Strona stworzona przez [Twoje Imię]
+    </div>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="petName">Nazwa Peta</h2>
+            <p>Cena podstawowa: <span id="basePrice">0</span> Gemy</p>
+            <h3>Opcje ulepszeń:</h3>
+            <ul>
+                <li><button class="enchant-btn" onclick="showEnchantPrices('luck')">Enchantment Szczęście</button></li>
+                <li><button class="enchant-btn" onclick="showEnchantPrices('rebirth')">Tanie Rebirthy</button></li>
+                <li><button class="enchant-btn" onclick="showEnchantPrices('gems')">Dodatkowe Gemy</button></li>
+                <li><button class="enchant-btn" onclick="showEnchantPrices('eggs')">Tańsze Jajka</button></li>
+                <li><button class="enchant-btn" onclick="showEnchantPrices('speed')">Szybkość Otwierania Jajek</button></li>
+            </ul>
+            <div id="enchantPrices" style="display: none;">
+                <h4>Ceny dla poziomów enchantów:</h4>
+                <ul id="pricesList" class="enchant-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const petsData = {
+            "Pies": {
+                basePrice: 200,
+                enchantments: {
+                    luck: [220, 240, 260, 280, 300, 320, 340, 360, 380],
+                    rebirth: [210, 230, 250, 270, 290, 310, 330, 350, 370],
+                    gems: [215, 235, 255, 275, 295, 315, 335, 355, 375],
+                    eggs: [205, 225, 245, 265, 285, 305, 325, 345, 365],
+                    speed: [200, 220, 240, 260, 280, 300, 320, 340, 360]
+                }
+            },
+            "Kot": {
+                basePrice: 150,
+                enchantments: {
+                    luck: [170, 190, 210, 230, 250, 270, 290, 310, 330],
+                    rebirth: [160, 190, 220, 250, 280, 310, 340, 370, 400],
+                    gems: [165, 190, 215, 240, 265, 290, 315, 340, 365],
+                    eggs: [155, 175, 195, 215, 235, 255, 275, 295, 315],
+                    speed: [150, 175, 200, 225, 250, 275, 300, 325, 350]
+                }
+            },
+            "Papuga": {
+                basePrice: 180,
+                enchantments: {
+                    luck: [200, 220, 240, 260, 280, 300, 320, 340, 360],
+                    rebirth: [190, 210, 230, 250, 270, 290, 310, 330, 350],
+                    gems: [195, 215, 235, 255, 275, 295, 315, 335, 355],
+                    eggs: [185, 205, 225, 245, 265, 285, 305, 325, 345],
+                    speed: [180, 200, 220, 240, 260, 280, 300, 320, 340]
+                }
+            },
+            "Królik": {
+                basePrice: 170,
+                enchantments: {
+                    luck: [190, 210, 230, 250, 270, 290, 310, 330, 350],
+                    rebirth: [180, 200, 220, 240, 260, 280, 300, 320, 340],
+                    gems: [185, 205, 225, 245, 265, 285, 305, 325, 345],
+                    eggs: [175, 195, 215, 235, 255, 275, 295, 315],
+                    speed: [170, 190, 210, 230, 250, 270, 290, 310, 330]
+                }
+            },
+            "Sowa": {
+                basePrice: 220,
+                enchantments: {
+                    luck: [240, 260, 280, 300, 320, 340, 360, 380, 400],
+                    rebirth: [230, 250, 270, 290, 310, 330, 350, 370, 390],
+                    gems: [235, 255, 275, 295, 315, 335, 355, 375, 395],
+                    eggs: [225, 245, 265, 285, 305, 325, 345, 365, 385],
+                    speed: [220, 240, 260, 280, 300, 320, 340, 360, 380]
+                }
+            },
+            "Chomik": {
+                basePrice: 140,
+                enchantments: {
+                    luck: [160, 180, 200, 220, 240, 260, 280, 300, 320],
+                    rebirth: [150, 170, 190, 210, 230, 250, 270, 290, 310],
+                    gems: [155, 175, 195, 215, 235, 255, 275, 295, 315],
+                    eggs: [145, 165, 185, 205, 225, 245, 265, 285, 305],
+                    speed: [140, 160, 180, 200, 220, 240, 260, 280, 300]
+                }
+            },
+            "Lis": {
+                basePrice: 230,
+                enchantments: {
+                    luck: [250, 270, 290, 310, 330, 350, 370, 390, 410],
+                    rebirth: [240, 260, 280, 300, 320, 340, 360, 380, 400],
+                    gems: [245, 265, 285, 305, 325, 345, 365, 385, 405],
+                    eggs: [235, 255, 275, 295, 315, 335, 355, 375, 395],
+                    speed: [230, 250, 270, 290, 310, 330, 350, 370, 390]
+                }
+            },
+            "Słoń": {
+                basePrice: 300,
+                enchantments: {
+                    luck: [320, 340, 360, 380, 400, 420, 440, 460, 480],
+                    rebirth: [310, 330, 350, 370, 390, 410, 430, 450, 470],
+                    gems: [315, 335, 355, 375, 395, 415, 435, 455, 475],
+                    eggs: [305, 325, 345, 365, 385, 405, 425, 445, 465],
+                    speed: [300, 320, 340, 360, 380, 400, 420, 440, 460]
+                }
+            },
+            "Żółw": {
+                basePrice: 250,
+                enchantments: {
+                    luck: [270, 290, 310, 330, 350, 370, 390, 410, 430],
+                    rebirth: [260, 280, 300, 320, 340, 360, 380, 400, 420],
+                    gems: [265, 285, 305, 325, 345, 365, 385, 405, 425],
+                    eggs: [255, 275, 295, 315, 335, 355, 375, 395, 415],
+                    speed: [250, 270, 290, 310, 330, 350, 370, 390, 410]
+                }
+            },
+            "Pingwin": {
+                basePrice: 210,
+                enchantments: {
+                    luck: [230, 250, 270, 290, 310, 330, 350, 370, 390],
+                    rebirth: [220, 240, 260, 280, 300, 320, 340, 360, 380],
+                    gems: [225, 245, 265, 285, 305, 325, 345, 365, 385],
+                    eggs: [215, 235, 255, 275, 295, 315, 335, 355, 375],
+                    speed: [210, 230, 250, 270, 290, 310, 330, 350, 370]
+                }
+            },
+            "Krokodyl": {
+                basePrice: 280,
+                enchantments: {
+                    luck: [300, 320, 340, 360, 380, 400, 420, 440, 460],
+                    rebirth: [290, 310, 330, 350, 370, 390, 410, 430, 450],
+                    gems: [295, 315, 335, 355, 375, 395, 415, 435, 455],
+                    eggs: [285, 305, 325, 345, 365, 385, 405, 425, 445],
+                    speed: [280, 300, 320, 340, 360, 380, 400, 420, 440]
+                }
+            },
+            "Małpa": {
+                basePrice: 270,
+                enchantments: {
+                    luck: [290, 310, 330, 350, 370, 390, 410, 430, 450],
+                    rebirth: [280, 300, 320, 340, 360, 380, 400, 420, 440],
+                    gems: [285, 305, 325, 345, 365, 385, 405, 425, 445],
+                    eggs: [275, 295, 315, 335, 355, 375, 395, 415, 435],
+                    speed: [270, 290, 310, 330, 350, 370, 390, 410, 430]
+                }
+            },
+            "Tygrys": {
+                basePrice: 320,
+                enchantments: {
+                    luck: [340, 360, 380, 400, 420, 440, 460, 480, 500],
+                    rebirth: [330, 350, 370, 390, 410, 430, 450, 470, 490],
+                    gems: [335, 355, 375, 395, 415, 435, 455, 475, 495],
+                    eggs: [325, 345, 365, 385, 405, 425, 445, 465, 485],
+                    speed: [320, 340, 360, 380, 400, 420, 440, 460, 480]
+                }
+            },
+            "Feniks": {
+                basePrice: 350,
+                enchantments: {
+                    luck: [370, 390, 410, 430, 450, 470, 490, 510, 530],
+                    rebirth: [360, 380, 400, 420, 440, 460, 480, 500, 520],
+                    gems: [365, 385, 405, 425, 445, 465, 485, 505, 525],
+                    eggs: [355, 375, 395, 415, 435, 455, 475, 495, 515],
+                    speed: [350, 370, 390, 410, 430, 450, 470, 490, 510]
+                }
+            },
+            "Smok": {
+                basePrice: 400,
+                enchantments: {
+                    luck: [420, 440, 460, 480, 500, 520, 540, 560, 580],
+                    rebirth: [410, 430, 450, 470, 490, 510, 530, 550, 570],
+                    gems: [415, 435, 455, 475, 495, 515, 535, 555, 575],
+                    eggs: [405, 425, 445, 465, 485, 505, 525, 545, 565],
+                    speed: [400, 420, 440, 460, 480, 500, 520, 540, 560]
+                }
+            },
+            "Wieloryb": {
+                basePrice: 370,
+                enchantments: {
+                    luck: [390, 410, 430, 450, 470, 490, 510, 530, 550],
+                    rebirth: [380, 400, 420, 440, 460, 480, 500, 520, 540],
+                    gems: [385, 405, 425, 445, 465, 485, 505, 525, 545],
+                    eggs: [375, 395, 415, 435, 455, 475, 495, 515, 535],
+                    speed: [370, 390, 410, 430, 450, 470, 490, 510, 530]
+                }
+            },
+            "Wilk": {
+                basePrice: 330,
+                enchantments: {
+                    luck: [350, 370, 390, 410, 430, 450, 470, 490, 510],
+                    rebirth: [340, 360, 380, 400, 420, 440, 460, 480, 500],
+                    gems: [345, 365, 385, 405, 425, 445, 465, 485, 505],
+                    eggs: [335, 355, 375, 395, 415, 435, 455, 475, 495],
+                    speed: [330, 350, 370, 390, 410, 430, 450, 470, 490]
+                }
+            }
+        };
+
+        function openModal(petName) {
+            const petData = petsData[petName];
+            document.getElementById('petName').innerText = petName;
+            document.getElementById('basePrice').innerText = petData.basePrice;
+            document.getElementById('enchantPrices').style.display = 'none';
+            document.getElementById('pricesList').innerHTML = '';
+            document.getElementById('myModal').style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
+
+        function showEnchantPrices(enchantType) {
+            const petName = document.getElementById('petName').innerText;
+            const prices = petsData[petName].enchantments[enchantType];
+            const pricesList = document.getElementById('pricesList');
+            pricesList.innerHTML = '';
+
+            prices.forEach((price, index) => {
+                const li = document.createElement('li');
+                li.textContent = `Poziom ${index + 1}: ${price} Gemów`;
+                pricesList.appendChild(li);
+            });
+
+            document.getElementById('enchantPrices').style.display = 'block';
+        }
+
+        // Zamykanie modala, gdy klikniesz poza nim
+        window.onclick = function(event) {
+            const modal = document.getElementById('myModal');
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
